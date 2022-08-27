@@ -18,8 +18,7 @@ import { CategorySelectButton } from "../../components/Form/CategorySelectButton
 import { CategorySelect } from "../CategorySelect"
 
 interface FormData {
-  name: string;
-  amount: string;
+  [name: string]: string;
 }
 
 export function Register(){
