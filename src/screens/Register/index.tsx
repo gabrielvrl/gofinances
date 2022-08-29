@@ -71,7 +71,7 @@ export function Register(){
     if(category.key === 'category')
       return Alert.alert('Selecione a categoria');
 
-    const data = {
+    const newTransaction = {
       name: form.name,
       amount: form.amount,
       transactionType,
@@ -79,7 +79,15 @@ export function Register(){
     }
 
     try {
-      await AsyncStorage.setItem(dataKey, JSON.stringify(data));
+      const data = await AsyncStorage.getItem(dataKey);
+      const currentData = data ? JSON.parse(data) : [];
+
+      const formattedData = [
+        ...currentData,
+        newTransaction
+      ]
+
+      await AsyncStorage.setItem(dataKey, JSON.stringify(formattedData));
 
     } catch(error) {
       console.log(error);
@@ -92,7 +100,14 @@ export function Register(){
       const data = await AsyncStorage.getItem(dataKey);
       console.log(JSON.parse(data!));
     }
+
     loadData();
+
+/*     async function removeAll(){
+      await AsyncStorage.removeItem(dataKey);
+    }
+
+    removeAll(); */
   }, [])
 
   return(
