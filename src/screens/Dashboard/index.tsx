@@ -55,8 +55,6 @@ export function Dashboard(){
       }
     });
 
-    console.log(transactionsFormatted)
-
     setData(transactionsFormatted);
   }
 
