@@ -7,7 +7,7 @@ import {
 } from "react-native";
 import * as Yup from "yup";
 import { yupResolver } from '@hookform/resolvers/yup';
-import AsyncStorage from "@react-native-async-storage/async-storage"
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import uuid from "react-native-uuid";
 import { useForm } from "react-hook-form";
@@ -49,8 +49,6 @@ export function Register(){
     name: 'Categoria',
   });
   
-  const dataKey =  '@gofinances:transactions';
-
   const navigation = useNavigation<NavigationProps>();
 
   const { 
@@ -91,6 +89,7 @@ export function Register(){
     }
 
     try {
+      const dataKey =  '@gofinances:transactions';
       const data = await AsyncStorage.getItem(dataKey);
       const currentData = data ? JSON.parse(data) : [];
 

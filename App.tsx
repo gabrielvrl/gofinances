@@ -3,6 +3,8 @@ import AppLoading from 'expo-app-loading';
 import { ThemeProvider } from "styled-components";
 import { StatusBar } from 'expo-status-bar';
 import 'react-native-gesture-handler';
+import 'intl';
+import 'intl/locale-data/jsonp/pt-BR'
 
 import {
   useFonts,
