@@ -5,14 +5,19 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { RFValue } from 'react-native-responsive-fontsize';
 
 import { HistoryCard } from '../../components/HistoryCard';
-import { useTheme } from 'styled-components'
+import { useTheme } from 'styled-components';
+import {  useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 
 import {
   Container,
   Header,
   Title,
   Content,
-  ChartContainer
+  ChartContainer,
+  MonthSelect,
+  MonthSelectButton,
+  MonthSelectIcon,
+  Month,
 } from './styles';
 import { categories } from '../../utils/categories';
 
@@ -93,7 +98,24 @@ export function Resume(){
         <Title>Resumo por categoria</Title>
       </Header>
 
-      <Content>
+      <Content
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{
+          paddingHorizontal: 24,
+          paddingBottom: useBottomTabBarHeight(),
+        }}
+      >
+
+        <MonthSelect>
+          <MonthSelectButton>
+            <MonthSelectIcon name="chevron-left" />
+          </MonthSelectButton>
+
+          <Month>Maio</Month>
+          <MonthSelectButton>
+            <MonthSelectIcon name="chevron-right" />
+          </MonthSelectButton>
+        </MonthSelect>
 
         <ChartContainer>
           <VictoryPie
