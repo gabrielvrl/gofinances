@@ -1,4 +1,4 @@
-import React, { createContext, ReactNode, useContext, useState } from 'react';
+import React, { createContext, ReactNode, useContext, useEffect, useState } from 'react';
 
 const { CLIENT_ID } =  process.env;
 const { REDIRECT_URI } =  process.env;
@@ -35,7 +35,10 @@ interface AuthorizationResponse {
 const AuthContext = createContext({} as AuthContextData);
 
 function AuthProvider({ children }: AuthProviderProps){
-  const [user, setUser] = useState<User>({} as User)
+  const [user, setUser] = useState<User>({} as User);
+  const [userStorageLoading, setUserStorageLoading] = useState(true);
+  
+  const userStorageKey = '@gofinances:user';
 
   async function signInWithGoogle(){
     try{
@@ -50,12 +53,15 @@ function AuthProvider({ children }: AuthProviderProps){
         const response = await fetch(`https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=${params.access_token}`);
         const userInfo = await response.json();
 
-        setUser({
+        const userLoggedIn = {
           id: userInfo.id,
           email: userInfo.email,
           name: userInfo.given_name,
-          photo: userInfo.picture,
-        })
+          photo: userInfo.picture
+        }
+                    
+        setUser(userLoggedIn);
+        AsyncStorage.setItem(userStorageKey, JSON.stringify(userLoggedIn));
       }
     } catch(err: any){
       throw new Error(err);
@@ -79,12 +85,29 @@ function AuthProvider({ children }: AuthProviderProps){
           photo: undefined,
         };
         setUser(userLogged);
-        await AsyncStorage.setItem('@gofinances:user', JSON.stringify(userLogged));
+        await AsyncStorage.setItem(userStorageKey, JSON.stringify(userLogged));
       }
     } catch(error: any) {
       throw new Error(error)
     }
   }
+
+  useEffect(() => {
+    async function loadUserStorageData() {
+      const userStoraged = await AsyncStorage.getItem(userStorageKey);
+
+      console.log(userStoraged)
+
+      if(userStoraged){
+        const userLogged = JSON.parse(userStoraged) as User;
+        setUser(userLogged);
+      }
+
+      setUserStorageLoading(false);
+    }
+
+    loadUserStorageData();
+  }, [])
 
   return (
     <AuthContext.Provider value={{ 

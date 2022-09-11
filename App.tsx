@@ -1,12 +1,16 @@
 import React from 'react';
 import { StatusBar } from 'react-native';
+
 import AppLoading from 'expo-app-loading';
+
 import { ThemeProvider } from "styled-components";
 // import { StatusBar } from 'expo-status-bar';
 import 'react-native-gesture-handler';
 import 'intl';
 import 'intl/locale-data/jsonp/pt-BR'
+
 import { NavigationContainer } from "@react-navigation/native";
+import { Routes } from './src/routes'
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 import {
@@ -36,12 +40,10 @@ export default function App() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <ThemeProvider theme={theme}>
-        <NavigationContainer>
-          <StatusBar backgroundColor="transparent" translucent barStyle="light-content" />
-          <AuthProvider>
-            <SignIn />
-          </AuthProvider>
-        </NavigationContainer>
+        <StatusBar backgroundColor="transparent" translucent barStyle="light-content" />
+        <AuthProvider>
+          <Routes />
+        </AuthProvider>
       </ThemeProvider>
     </GestureHandlerRootView>
   );
