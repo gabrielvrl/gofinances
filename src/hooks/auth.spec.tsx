@@ -20,7 +20,7 @@ describe('Auth hook', () => {
   });
 
   it('should be able to sign in with Google Account existing', async () => {
-    mockStartAsync.mockReturnValue({
+    mockStartAsync.mockReturnValueOnce({
       type: 'success',
       params: {
         access_token: 'google-token'
@@ -52,7 +52,7 @@ describe('Auth hook', () => {
   });
 
   it('should not connect  if cancel authcation with google', async () => {
-    mockStartAsync.mockReturnValue({
+    mockStartAsync.mockReturnValueOnce({
       type: 'cancel',
     })
 
