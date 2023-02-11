@@ -15,6 +15,10 @@ jest.mock('@react-native-async-storage/async-storage', () => ({
 }))
 
 describe('Auth hook', () => {
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
+
   it('should be able to sign in with Google Account existing', async () => {
     mockStartAsync.mockReturnValue({
       type: 'success',
@@ -59,4 +63,16 @@ describe('Auth hook', () => {
     .not.toHaveProperty('id');
   });
 
+  
+  it('should return an error when incorrectly Google parameters is send', async () => {      
+    const { result } = renderHook(() => useAuth(), {
+      wrapper: AuthProvider
+    });
+
+    try{
+      await act(() => result.current.signInWithGoogle());    
+    }catch{
+      expect(result.current.user).toEqual({});
+    }    
+  });
 })
