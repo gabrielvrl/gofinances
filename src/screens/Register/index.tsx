@@ -58,7 +58,7 @@ export function Register(){
 
   const { user } = useAuth();
   
-  const navigation = useNavigation<NavigationProps>();
+  // const navigation = useNavigation<NavigationProps>();
 
   const { 
     control,
@@ -116,7 +116,7 @@ export function Register(){
         name: 'Categoria'
       });
       
-      navigation.navigate('Listagem');
+      // navigation.navigate('Listagem');
 
     } catch(error) {
       console.log(error);
@@ -170,7 +170,9 @@ export function Register(){
 
             <CategorySelectButton 
               title={category.name}
-              onPress={handleOpenSelectedCategoryModal}
+              onPress={handleOpenSelectedCategoryModal} 
+              icon={null}
+              testID="button-category"
             />
           </Fields>
 
@@ -180,7 +182,7 @@ export function Register(){
           />
         </Form>
 
-        <Modal visible={categoryModalOpen}>
+        <Modal testID="modal-category" visible={categoryModalOpen}>
           <CategorySelect
             category={category}
             setCategory={setCategory}
