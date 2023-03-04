@@ -25,6 +25,10 @@ import { AppRoutes } from './src/routes/app.routes'
 import { SignIn } from './src/screens/SignIn';
 
 import { AuthProvider, useAuth } from './src/hooks/auth';
+import * as SplashScreen from 'expo-splash-screen';
+
+SplashScreen.preventAutoHideAsync();
+setTimeout(SplashScreen.hideAsync, 200);
 
 export default function App() {
   const [fontsLoaded] = useFonts({

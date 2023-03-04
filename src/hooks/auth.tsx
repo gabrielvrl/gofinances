@@ -106,8 +106,6 @@ function AuthProvider({ children }: AuthProviderProps){
     async function loadUserStorageData() {
       const userStoraged = await AsyncStorage.getItem(userStorageKey);
 
-      console.log(userStoraged)
-
       if(userStoraged){
         const userLogged = JSON.parse(userStoraged) as User;
         setUser(userLogged);
